@@ -1,8 +1,42 @@
 # AssetRam
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/asset_ram`. To experiment with that code, run `bin/console` for an interactive prompt.
+In a nutshell, for [a typical page](https://texas.public.law/statutes/tex._fam._code_section_1.001) in my Rails app, I get:
 
-TODO: Delete this and the text above, and describe your gem
+* 71% reduction in execution time
+* 83% reduction in allocations
+
+## Example stats from development mode (production is similar)
+
+Without AssetRam:
+
+```
+Completed 200 OK in 38ms (Views: 34.2ms | ActiveRecord: 0.9ms | Allocations: 30332)
+```
+
+With AssetRam:
+
+```
+Completed 200 OK in 11ms (Views: 5.1ms | ActiveRecord: 1.3ms | Allocations: 5208)
+```
+
+
+## Usage
+
+Wrap every asset helper call with `#cache`, like this:
+
+### Before
+
+```ruby
+= favicon_link_tag('favicon/favicon.ico', rel: 'icon')
+```
+
+### After
+
+```ruby
+= AssetRam::Helper.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') }
+```
+
+
 
 ## Installation
 
@@ -20,9 +54,6 @@ Or install it yourself as:
 
     $ gem install asset_ram
 
-## Usage
-
-TODO: Write usage instructions here
 
 ## Development
 
@@ -32,7 +63,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/asset_ram.
+Bug reports and pull requests are welcome on GitHub at https://github.com/dogweather/asset_ram.
 
 ## License
 
