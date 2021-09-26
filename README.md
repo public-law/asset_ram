@@ -49,6 +49,30 @@ In my HTML HEAD view, I have a `site` variable for choosing the CSS file for the
 = AssetRam::Helper.cache(key: site) { stylesheet_link_tag("themes/#{site}", media: nil) }
 ```
 
+## Background: I was looking for ways to reduce allocations in my Rails app
+
+In an effort to help my app run in a small 512MB virtual server, I looked through every view
+invocation in the logs. After I optimized a bunch of my code, I realized that the asset helpers
+create a relatively large amount of objects. The code is pretty complex too implying some amount
+of CPU overhead. Worst of all, this work is done over on every request.
+
+These asset fingerprints are potentially re-generated on every deploy. So they can't be stored in
+the usual Rails cache. I realized that storing the computed paths in a simple hash (in RAM only)
+would be fast and never return stale data: The RAM cache goes away on a deploy/restart, which is
+when asset fingerprints could change.
+
+And so one-by-one I started storing the computed asset paths in a hash, and saw pretty dramatic results.
+
+## How it works: Block-based code executed in the view's context and inferred cache keys
+
+There's some magic around when the asset helpers are able to create the fingerprint path. I found
+that the caching needs to be done within the context of a view. This is why the lib's API looks
+the way it does. 
+
+To make it as easy as possible to use, the lib finds the view's source filename and the line number of
+the code being cached. This has been working well and in production for four months in a large Rails app.
+
+
 
 ## Installation
 
