@@ -31,6 +31,7 @@ Wrap every asset helper call with `#cache`, like this:
 
 ```ruby
 <%= favicon_link_tag('favicon/favicon.ico', rel: 'icon') %>
+```
 
 After booting up, messages like these will appear _once_ in the log. They show the 
 full cache key.
@@ -41,8 +42,6 @@ Caching ["/Users/robb/src/PublicLaw/public-law-website/app/views/application/_fa
 Caching ["/Users/robb/src/PublicLaw/public-law-website/app/views/application/_favicon.haml", 11]
 ```
 
-
-```
 
 ### After
 
