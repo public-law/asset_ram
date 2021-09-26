@@ -5,7 +5,7 @@ In a nutshell, for [a typical dynamic page](https://texas.public.law/statutes/te
 * 71% reduction in execution time
 * 83% reduction in allocations
 
-My app has been amazingly efficient since using these: memory usage stays flat, and it's very quick, with production response times averaging 37ms a Heroku Standard-2x Dyno.
+My app has been amazingly efficient since using these: memory usage stays flat at just 50% usage for 4 Puma workers. It's very quick, with production response times averaging 37ms a Heroku Standard-2x Dyno.
 
 
 ## Example stats from development mode (production is similar)
