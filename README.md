@@ -29,13 +29,13 @@ Wrap every asset helper call with `#cache`, like this:
 
 ### Before
 
-```ruby
+```erb
 <%= favicon_link_tag('favicon/favicon.ico', rel: 'icon') %>
 ```
 
 ### After
 
-```ruby
+```erb
 <%= AssetRam::Helper.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') } %>
 ```
 
@@ -50,7 +50,7 @@ Caching ["/Users/robb/src/PublicLaw/public-law-website/app/views/application/_fa
 
 I use it in my footer for social icons as well: (HAML syntax)
 
-```
+```HAML
 = link_to asset.cache { image_tag("social/instagram-logo.svg", alt: 'Instagram', loading: 'lazy', decoding: 'async') },    "https://www.instagram.com/law.is.code/"
 = link_to asset.cache { image_tag("social/facebook-logo-button.svg", alt: 'Facebook', loading: 'lazy', decoding: 'async') }, "https://www.facebook.com/PublicDotLaw"
 = link_to asset.cache { image_tag("social/twitter-logo-button.svg", alt: 'Twitter', loading: 'lazy', decoding: 'async') },   "https://twitter.com/law_is_code"
