@@ -57,7 +57,7 @@ In my HTML HEAD view, I have a `site` variable for choosing the CSS file for the
 In an effort to help my app run in a small 512MB virtual server, I looked through every view
 invocation in the logs. After I optimized a bunch of my code, I realized that the asset helpers
 create a relatively large amount of objects. The code is pretty complex too implying some amount
-of CPU overhead. Worst of all, this work is done over on every request.
+of CPU overhead. Moreover, this work is done over **on every request**.
 
 These asset fingerprints are potentially re-generated on every deploy. So they can't be stored in
 the usual Rails cache. I realized that storing the computed paths in a simple hash (in RAM only)
