@@ -5,7 +5,7 @@
 
 This is a mea culpa: The outrageous savings I saw is only in development mode. In production, though,
 the improvement in allocations is only 17% (~ 1,100 allocations per request). (Pretty good improvement for my app, 
-but not the 80% I see in development.) Full logs follow.
+but not the 80% I see in development.) **My mistake was only going by development server stats.** Full logs follow.
 
 Here's where those savings come from:
 
