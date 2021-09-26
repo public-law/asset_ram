@@ -1,6 +1,6 @@
 # AssetRam
 
-In a nutshell, for [a typical page](https://texas.public.law/statutes/tex._fam._code_section_1.001) in my Rails app, I get:
+In a nutshell, for [a typical dynamic page](https://texas.public.law/statutes/tex._fam._code_section_1.001) in my Rails app, I get:
 
 * 71% reduction in execution time
 * 83% reduction in allocations
