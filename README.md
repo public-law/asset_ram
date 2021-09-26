@@ -36,6 +36,18 @@ Wrap every asset helper call with `#cache`, like this:
 = AssetRam::Helper.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') }
 ```
 
+### In some cases, the cache key can't be inferred.
+
+RamCache creates the cache key automatically using the view source filename and line number.
+This works for most uses. 
+
+Some of my app's views are an exception, however. It's multi-tenant and the views serve content
+for several sub-domains. And so the call to `#cache` allows extra key info to be passed.
+In my HTML HEAD view, I have a `site` variable for choosing the CSS file for the domain:
+
+```
+= AssetRam::Helper.cache(key: site) { stylesheet_link_tag("themes/#{site}", media: nil) }
+```
 
 
 ## Installation
