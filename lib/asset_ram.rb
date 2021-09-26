@@ -5,7 +5,7 @@ require_relative "asset_ram/version"
 #
 # Use in views to cache the asset path computation.
 #
-# For example, in an ERB file:
+# For example, in a HAML file:
 #
 # = AssetRam::Helper.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') }
 #
