@@ -14,7 +14,7 @@ Here's where those savings come from:
 ```
 
 My site's footer is static except for the asset links to e.g. social media icons. AFAIK, I can't use Rails caching 
-for the entire footer because the asset fingerprints could change on the next reboot. I don't think the Rails
+for the entire footer because the asset fingerprints could change on the next reboot. I don't believe the Rails
 cache API has an option for that expiration type.
 
 
