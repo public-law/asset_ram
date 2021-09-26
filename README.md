@@ -183,7 +183,7 @@ In a nutshell, for [a typical dynamic page](https://texas.public.law/statutes/te
 My app has been amazingly efficient since using these: memory usage stays flat at just 50% usage (512MB) for 4 Puma workers. It's very quick, with production response times averaging 37ms on a Heroku 1GB Standard-2x Dyno.
 
 
-## Example stats for [the page](https://texas.public.law/statutes/tex._fam._code_section_1.001)
+## Example stats for [the page](https://texas.public.law/statutes/tex._fam._code_section_1.001) **in development**
 
 Without AssetRam:
 
