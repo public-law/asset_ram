@@ -30,13 +30,13 @@ Wrap every asset helper call with `#cache`, like this:
 ### Before
 
 ```ruby
-= favicon_link_tag('favicon/favicon.ico', rel: 'icon')
+<%= favicon_link_tag('favicon/favicon.ico', rel: 'icon') %>
 ```
 
 ### After
 
 ```ruby
-= AssetRam::Helper.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') }
+<%= AssetRam::Helper.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') } %>
 ```
 
 ### In some cases, the cache key can't be inferred.
