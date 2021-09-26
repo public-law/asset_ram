@@ -68,7 +68,7 @@ And so one-by-one I started storing the computed asset paths in a hash, and saw 
 
 ## How it works: Block-based code executed in the view's context and inferred cache keys
 
-There's some magic around when the asset helpers are able to create the fingerprint path. I found
+Rails has some magic around when the asset helpers are able to create the fingerprint path. I found
 that the caching needs to be done within the context of a view. This is why the lib's API looks
 the way it does. 
 
