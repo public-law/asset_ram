@@ -69,8 +69,8 @@ Some of my app's views are an exception, however. It's multi-tenant and the view
 for several sub-domains. And so the call to `#cache` allows extra key info to be passed.
 In my HTML HEAD view, I have a `site` variable for choosing the CSS file for the domain:
 
-```
-= AssetRam::Helper.cache(key: site) { stylesheet_link_tag("themes/#{site}", media: nil) }
+```ruby
+<%= AssetRam::Helper.cache(key: site) { stylesheet_link_tag("themes/#{site}", media: nil) } %>
 ```
 
 ## Background: I was looking for ways to reduce allocations in my Rails app
