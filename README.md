@@ -1,7 +1,7 @@
 
 
 
-# Tests in Production: allocation savings comes only from avoiding certain rendering
+# Tests in Production: allocation savings comes from avoiding certain rendering
 
 This is a mea culpa: The outrageous savings I saw is only in development mode. In production, though,
 the improvement in allocations is only 17% (~ 1,100 allocations per request). (Pretty good improvement for my app, 
