@@ -15,13 +15,19 @@ Here's where those savings come from:
 
 My site's footer is static except for the asset links to e.g. social media icons. AFAIK, I can't use Rails caching 
 for the entire footer because the asset fingerprints could change on the next reboot. I don't believe the Rails
-cache API has an option for that expiration type.
+cache API has an option for that expiration type. So there's an "incompatibility" between asset caching (via fingerprinting)
+and Rails caching (via ActiveRecord timestamps). Rails uses these two separate methods (for good reason), and asset
+rendering is this one spot where they intersect such that the computational work is re-done on every request.
+
+This gem caches the output of a partial in a clever way making it easy to use. It syncs the cache expiration with
+the way that assets are updated (_not_ the way that ActiveRecord models are updated). It caches only in RAM, until 
+the server is rebooted. Therefore, when an **asset** is changed — and the server redeploys and reboots — this RAM cache is cleared.
 
 
 ## Production comparison test #1: https://texas.public.law/statutes/tex._fam._code_section_1.001
 
 * 17% fewer allocations (5315 vs. 6414)
-* 1,099 allocations saved only by not rendering the footer views.
+* 1,099 allocations saved by simply not re-rendering the footer views.
 * 7ms slower
 
 
