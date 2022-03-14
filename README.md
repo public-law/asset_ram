@@ -183,13 +183,12 @@ Wrap every asset helper call with `#cache`, like this:
 <%= AssetRam::Helper.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') } %>
 ```
 
-After booting up, messages like these will appear _once_ in the log. They show the 
-full cache key.
+After booting up, a message like this will appear _once_ in the log when the asset link
+is generated. It shows the full cache key so we can see what it's caching. This is the line
+of code that, without AssetRam, would be exectued on every request.
 
 ```
-Caching ["/Users/robb/src/PublicLaw/public-law-website/app/views/application/_html_head.haml", 16, "texas"]
 Caching ["/Users/robb/src/PublicLaw/public-law-website/app/views/application/_favicon.haml", 8]
-Caching ["/Users/robb/src/PublicLaw/public-law-website/app/views/application/_favicon.haml", 11]
 ```
 
 I use it in my footer for social icons as well: (HAML syntax)
