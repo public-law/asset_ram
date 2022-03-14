@@ -181,28 +181,6 @@ the server is rebooted. Therefore, when an **asset** is changed — and the serv
 
 # AssetRam
 
-In a nutshell, for [a typical dynamic page](https://texas.public.law/statutes/tex._fam._code_section_1.001) in my Rails app, **in development** I get:
-
-* 71% reduction in execution time
-* 83% reduction in allocations
-
-My app has been amazingly efficient since using these: memory usage stays flat at just 50% usage (512MB) for 4 Puma workers. It's very quick, with production response times averaging 37ms on a Heroku 1GB Standard-2x Dyno.
-
-
-## Example stats for [the page](https://texas.public.law/statutes/tex._fam._code_section_1.001) **in development**
-
-Without AssetRam:
-
-```
-Completed 200 OK in 38ms (Views: 34.2ms | ActiveRecord: 0.9ms | Allocations: 30332)
-```
-
-With AssetRam:
-
-```
-Completed 200 OK in 11ms (Views: 5.1ms | ActiveRecord: 1.3ms | Allocations: 5208)
-```
-
 
 ## Usage
 
