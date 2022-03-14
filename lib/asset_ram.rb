@@ -37,8 +37,8 @@ module AssetRam
       cache_key << key if key.present?
 
       if !@@_cache.has_key?(cache_key)
-        # Using WARN level because it should only be output
-        # once during any Rails run. If its output multiple
+        # Using WARN level because it should only output
+        # once during any Rails run. If it's output multiple
         # times, then caching isn't working correctly.
         Rails.logger.warn("Caching #{cache_key}")
         @@_cache[cache_key] = yield
