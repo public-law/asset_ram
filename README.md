@@ -13,15 +13,7 @@ Here's where those savings come from:
     = AssetRam::Helper.cache { render 'footer' }
 ```
 
-My site's footer is static except for the asset links to e.g. social media icons. AFAIK, I can't use Rails caching 
-for the entire footer because the asset fingerprints could change on the next reboot. I don't believe the Rails
-cache API has an option for that expiration type. So there's an "incompatibility" between asset caching (via fingerprinting)
-and Rails caching (via ActiveRecord timestamps). Rails uses these two separate methods (for good reason), and asset
-rendering is this one spot where they intersect such that the computational work is re-done on every request.
-
-This gem caches the output of a partial in a clever way making it easy to use. It syncs the cache expiration with
-the way that assets are updated (_not_ the way that ActiveRecord models are updated). It caches only in RAM, until 
-the server is rebooted. Therefore, when an **asset** is changed — and the server redeploys and reboots — this RAM cache is cleared.
+My site's footer is static except for the asset links to e.g. social media icons. 
 
 
 ## Production comparison test #1: https://texas.public.law/statutes/tex._fam._code_section_1.001
