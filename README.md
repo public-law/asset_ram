@@ -1,7 +1,6 @@
+# AssetRam
 
-
-
-# Tests in Production: allocation savings comes from avoiding certain rendering
+## Tests in Production: allocation savings comes from avoiding certain rendering
 
 This is a mea culpa: The outrageous savings I saw is only in development mode. In production, though,
 the improvement in allocations is 17% (~ 1,100 allocations per request). (Pretty good improvement for my app, 
@@ -16,7 +15,7 @@ Here's where those savings come from:
 My site's footer is static except for the asset links to e.g. social media icons. 
 
 
-## Production comparison test #1: https://texas.public.law/statutes/tex._fam._code_section_1.001
+### Production comparison test #1: https://texas.public.law/statutes/tex._fam._code_section_1.001
 
 * 17% fewer allocations (5315 vs. 6414)
 * 1,099 allocations saved by simply not re-rendering the footer views.
@@ -92,7 +91,7 @@ My site's footer is static except for the asset links to e.g. social media icons
 ```
 
 
-## Production comparison test #2: https://texas.public.law/statutes/tex._fam._code_section_1.101
+### Production comparison test #2: https://texas.public.law/statutes/tex._fam._code_section_1.101
 
 * 17% fewer Allocations (5306 vs. 6407)
 * 1,101 allocations saved only by not rendering the footer views.
@@ -166,12 +165,6 @@ My site's footer is static except for the asset links to e.g. social media icons
 2021-09-26T18:06:54.110920+00:00 app[web.1]: [2888c0c9-6d62-46bf-96f7-b8507b6101d3] Completed 200 OK in 18ms (Views: 7.7ms | ActiveRecord: 3.8ms | Elasticsearch: 0.0ms | Allocations: 6407)
 ```
 
-
-
-
-
-
-# AssetRam
 
 
 ## Usage
