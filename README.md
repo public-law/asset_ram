@@ -5,7 +5,7 @@
 Here's where the savings come from:
 
 ```ruby
-    = AssetRam::Helper.cache { render 'footer' }
+= AssetRam::Helper.cache { render 'footer' }
 ```
 
 My site's footer is static except for the asset links to e.g. social media icons. 
