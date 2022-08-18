@@ -27,14 +27,19 @@ module AssetRam
   ##
   # Our own asset helper which memoizes Rails' asset helper calls.
   class Helper
-
     @@_cache = {}
 
-    def self.cache(key: '', &blk)
-      return yield if ENV['ASSET_RAM_DISABLE']
 
+    def self.cache(key: '', &blk)
       cache_key = blk.source_location
       cache_key << key if key.present?
+
+      cache_by_key(cache_key, &blk)
+    end
+
+
+    def self.cache_by_key(cache_key, &blk)
+      return yield if ENV['ASSET_RAM_DISABLE']
 
       if !@@_cache.has_key?(cache_key)
         # Using WARN level because it should only output
