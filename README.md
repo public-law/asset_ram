@@ -16,7 +16,7 @@ Wrap every asset helper call with `#cache`, like this:
 
 ### Before
 
-```erb
+```ruby
 <%= favicon_link_tag('favicon/favicon.ico', rel: 'icon') %>
 # ...
 <%= javascript_include_tag('application.js') %>
@@ -25,7 +25,7 @@ Wrap every asset helper call with `#cache`, like this:
 
 ### After
 
-```erb
+```ruby
 <%= AssetRam::Helper.cache{ favicon_link_tag('favicon/favicon.ico', rel: 'icon') } %>
 # ...
 <%= AssetRam::Helper.cache{ javascript_include_tag('application.js') } %>
@@ -39,9 +39,11 @@ of code that, without AssetRam, would be exectued on every request.
 Caching ["/website/app/views/application/_favicon.haml", 8]
 ```
 
-I use it in my footer for social icons as well: (HAML syntax)
+I use it in my footer for social icons as well. (HAML syntax) 
 
 ```ruby
+- asset = AssetRam::Helper
+
 = link_to asset.cache { image_tag("social/instagram-logo.svg", alt: 'Instagram', loading: 'lazy', decoding: 'async') },    "https://www.instagram.com/law.is.code/"
 = link_to asset.cache { image_tag("social/facebook-logo-button.svg", alt: 'Facebook', loading: 'lazy', decoding: 'async') }, "https://www.facebook.com/PublicDotLaw"
 = link_to asset.cache { image_tag("social/twitter-logo-button.svg", alt: 'Twitter', loading: 'lazy', decoding: 'async') },   "https://twitter.com/law_is_code"
