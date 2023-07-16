@@ -26,20 +26,23 @@ Wrap every asset helper call with `#cache`, like this:
 ### After
 
 ```ruby
-<%= AssetRam::Helper.cache{ favicon_link_tag('favicon/favicon.ico', rel: 'icon') } %>
+<%= AssetRam::Helper.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') } %>
 # ...
-<%= AssetRam::Helper.cache{ javascript_include_tag('application.js') } %>
+<%= AssetRam::Helper.cache { javascript_include_tag('application.js') } %>
 ```
 
-After booting up, a message like this will appear _once_ in the log when the asset link
-is generated. It shows the full cache key so we can see what it's caching. This is the line
-of code that, without AssetRam, would be exectued on every request.
+After booting up, a message like this will appear _once_ in the log:
 
 ```
 Caching ["/website/app/views/application/_favicon.haml", 8]
 ```
 
-I use it in my footer for social icons as well. (HAML syntax) 
+It outputs this when the asset link is generated. It shows the full cache key
+so we can see what it's caching. This is the line of code that, without AssetRam,
+would be exectued on every request.
+
+
+I use it in my footer for social icons as well. I used to have this: (HAML syntax) 
 
 ```ruby
 - asset = AssetRam::Helper
@@ -51,6 +54,11 @@ I use it in my footer for social icons as well. (HAML syntax)
 ```
 
 
+But my whole footer partial is static. So I just do this instead in my layout:
+
+```ruby
+= AssetRam::Helper.cache { render 'footer_for_screen' }
+```
 
 
 ### In some cases, the cache key can't be inferred.
@@ -58,9 +66,9 @@ I use it in my footer for social icons as well. (HAML syntax)
 RamCache creates the cache key automatically using the view source filename and line number.
 This works for most uses. 
 
-Some of my app's views are an exception, however. It's multi-tenant and the views serve content
-for several sub-domains. And so the call to `#cache` allows extra key info to be passed.
-In my HTML HEAD view, I have a `site` variable for choosing the CSS file for the domain:
+Some of my app's views are an exception, however. It's **multi-tenant** and the views serve content
+for many sub-domains. To handle this, the call to `#cache` allows extra key info to be passed.
+In my HTML `head` view, I already had a `site` variable for choosing the CSS file for the domain. So I reuse that as extra cache key info:
 
 ```ruby
 <%= AssetRam::Helper.cache(key: site) { stylesheet_link_tag("themes/#{site}", media: nil) } %>
