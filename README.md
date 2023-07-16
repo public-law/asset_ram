@@ -1,10 +1,12 @@
 # AssetRam
 
-**Rails 7 update:** 35% reduction in allocations measured. I tested with [my Rails app's home page](https://www.public.law) in production:
+**Rails 7 update:** 35% reduction in allocations measured. I tested with [my Rails app's home page](https://www.public.law) running Rails 7.0.6 and Ruby 3.2.2 in production:
 
 ![Test Data](test-data.png)
 
-The savings comes from avoiding asset calculations.
+The savings come from avoiding asset calculations. The app is faster, too. But it's hard for me to measure precisely: enabling AssetRam, this page goes from ~9ms to ~7ms.
+
+> Tip: Set env var `ASSET_RAM_DISABLE` to switch it off for comparisons.
 
 
 ## Usage
@@ -14,16 +16,18 @@ Wrap every asset helper call with `#cache`, like this:
 
 ### Before
 
-```ruby
+```erb
 <%= favicon_link_tag('favicon/favicon.ico', rel: 'icon') %>
+# ...
 <%= javascript_include_tag('application.js') %>
 ```
 
 
 ### After
 
-```ruby
-<%= AssetRam::Helper.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') } %>
+```erb
+<%= AssetRam::Helper.cache{ favicon_link_tag('favicon/favicon.ico', rel: 'icon') } %>
+# ...
 <%= AssetRam::Helper.cache{ javascript_include_tag('application.js') } %>
 ```
 
@@ -32,7 +36,7 @@ is generated. It shows the full cache key so we can see what it's caching. This 
 of code that, without AssetRam, would be exectued on every request.
 
 ```
-Caching ["/Users/robb/src/PublicLaw/public-law-website/app/views/application/_favicon.haml", 8]
+Caching ["/website/app/views/application/_favicon.haml", 8]
 ```
 
 I use it in my footer for social icons as well: (HAML syntax)
