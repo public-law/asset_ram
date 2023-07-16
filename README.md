@@ -1,6 +1,6 @@
 # AssetRam
 
-## Rails 7 update: still effective and necessary, 30% reduction in allocations measured
+## Rails 7 update: 35% reduction in allocations measured
 
 I just did a test using [my website's home page](https://www.public.law). Blog post coming soon with details.
 
