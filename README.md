@@ -1,5 +1,10 @@
 # AssetRam
 
+## Rails 7 update: still effective and necessary, 17.6% reduction in allocations measured
+
+I just did a test using [my website's home page](https://www.public.law). Blog post coming soon with details.
+
+
 ## Tests in Production: allocation savings comes from avoiding certain rendering
 
 Here's where the savings come from:
