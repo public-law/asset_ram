@@ -6,7 +6,7 @@
 
 The savings come from avoiding asset calculations. The app is faster, too. But it's hard for me to measure precisely: enabling AssetRam, this page goes from ~9ms to ~7ms.
 
-> Tip: Set env var `ASSET_RAM_DISABLE` to switch it off for comparisons.
+> Tip: Set env var `ASSET_RAM_DISABLE` to do these comparisons yourself.
 
 
 ## Usage
