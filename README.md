@@ -1,6 +1,6 @@
 # AssetRam
 
-**Rails 7 update:** 35% reduction in allocations measured. I tested with [my Rails app's home page](https://www.public.law) running Rails 7.0.6 and Ruby 3.2.2 in production:
+**Rails 7 update:** 35% reduction in allocations measured. I tested with [my Rails app's home page](https://www.public.law) running Rails 7.0.6 and Ruby 3.2.2 in production. It's a very simple page with five images. If you have more, you'll get a bigger boost:
 
 ![Test Data](test-data.png)
 
