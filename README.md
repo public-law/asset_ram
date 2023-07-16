@@ -113,24 +113,6 @@ To make it as easy as possible to use, the lib finds the view's source filename 
 the code being cached. This has been working well and in production for four months in a large Rails app.
 
 
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'asset_ram'
-```
-
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install asset_ram
-
-
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
