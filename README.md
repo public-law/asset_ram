@@ -1,10 +1,16 @@
 # AssetRam
 
 **Rails 7 update:** 35% reduction in allocations measured. I tested 
-[my app's home page](https://www.public.law) in production running Rails 7.0.6 
-and Ruby 3.2.2. Same results with Sprockets v3 and v4. 
+[my app's home page](https://www.public.law) in production:
+
+* Rails 7.0.6
+* Ruby 3.2.2. 
+* Sprockets v3 and v4.
+* `JE_MALLOC`
+* `--enable-yjit`
+* 
 The page is simple with only five images. If you have more, you'll get 
-a bigger boost:
+an even bigger boost:
 
 <img src="https://github.com/dogweather/asset_ram/raw/master/test-data.png" alt="Test Data" style="width: 70%;">
 
