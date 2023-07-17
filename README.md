@@ -2,9 +2,7 @@
 
 **Rails 7 update:** 35% reduction in allocations measured. I tested with [my Rails app's home page](https://www.public.law) running Rails 7.0.6 and Ruby 3.2.2 in production. It's a very simple page with only five images. If you have more, you'll get a bigger boost:
 
-<div style="text-align: center">
-  <img src="https://github.com/dogweather/asset_ram/raw/master/test-data.png" alt="Test Data" style="width: 50%;">
-</div>
+<img src="https://github.com/dogweather/asset_ram/raw/master/test-data.png" alt="Test Data" style="width: 50%;">
 
 The savings come from avoiding asset calculations. The app is faster, too. But it's hard for me to measure precisely: enabling AssetRam, this page goes from ~9ms to ~7ms.
 
