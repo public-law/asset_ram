@@ -46,7 +46,7 @@ Wrap every asset helper call with `#cache`, like this:
 <%= AssetRam::Helper.cache { javascript_include_tag('application.js') } %>
 ```
 
-After booting up, AssetRam sends a message like this _once_ to the log:
+After booting up, AssetRam sends a message like this _once_ to the log for each usage:
 
 ```
 Caching ["/website/app/views/application/_favicon.haml", 8]
