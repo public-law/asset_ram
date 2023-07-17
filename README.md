@@ -1,6 +1,6 @@
 # AssetRam
 
-**Rails 7 update: 35% reduction in allocations measured.** I tested 
+**Rails 7 update: I measured a 35% reduction in allocations.** I tested 
 [my app's home page](https://www.public.law) in production:
 
 * Rails 7.0.6
