@@ -64,7 +64,8 @@ After booting up, AssetRam sends a message like this _once_ to the log for each 
 Caching ["/website/app/views/application/_favicon.haml", 8]
 ```
 
-It outputs this when the asset link is generated. It shows the full cache key
+It outputs this when the asset link is generated. It shows the full cache key (filename
+and line number)
 so we can see what it's caching. This is the line of code that, without AssetRam,
 would be exectued on every request.
 
