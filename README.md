@@ -6,15 +6,17 @@
 * Rails 7.0.6
 * Ruby 3.2.2. 
 * Sprockets v3 and v4.
-* `JE_MALLOC`
+* JE_MALLOC
 * `--enable-yjit`
-* 
+
 The page is simple with only five images. If you have more, you'll get 
 an even bigger boost:
 
 <img src="https://github.com/dogweather/asset_ram/raw/master/test-data.png" alt="Test Data" style="width: 70%;">
 
-The savings come from avoiding asset calculations. The app is faster, too. But it's hard for me to measure precisely: enabling AssetRam, this page goes from ~9ms to ~7ms.
+The savings come from avoiding asset calculations. The app is faster, too.
+But it's hard for me to measure precisely: enabling AssetRam, this page goes
+from ~9ms to ~7ms.
 
 > Tip: Set env var `ASSET_RAM_DISABLE` to do this comparison with yourself.
 
