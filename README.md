@@ -97,8 +97,10 @@ create a relatively large amount of objects. The code is pretty complex too impl
 of CPU overhead. Moreover, this work is **repeated on every request**.
 
 These asset fingerprints are potentially re-generated on every deploy. Maybe I edit an image, but
-I haven't modified any ActiveRecord models So **the asset links can't be stored in
-the standard Rails cache.** I realized that storing the computed paths in a simple hash (in RAM only)
+I haven't modified any ActiveRecord models. This means that **the asset links cannot be stored in
+the standard Rails cache.** (If the Rails cache had a lifetime option of, "until next boot", that would solve the problem.)
+
+I realized that storing the computed paths in a simple hash (in RAM only)
 would be fast and never return stale data: The RAM cache goes away on a deploy/restart, which is
 when asset fingerprints could change.
 
