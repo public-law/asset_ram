@@ -57,7 +57,7 @@ so we can see what it's caching. This is the line of code that, without AssetRam
 would be exectued on every request.
 
 
-I use it in my footer for social icons as well. I used to have this: (HAML syntax) 
+I use it in my footer for social icons as well. I **used to** have this: (HAML syntax) 
 
 ```ruby
 - asset = AssetRam::Helper
@@ -69,7 +69,7 @@ I use it in my footer for social icons as well. I used to have this: (HAML synta
 ```
 
 
-But my whole footer partial is static. So I just do this instead in my layout:
+But my whole footer partial is static. So now I just do this instead in my layout:
 
 ```ruby
 = AssetRam::Helper.cache { render 'footer_for_screen' }
