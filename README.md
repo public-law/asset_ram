@@ -15,8 +15,8 @@ an even bigger boost:
 <img src="https://github.com/dogweather/asset_ram/raw/master/test-data.png" alt="Test Data" style="width: 70%;">
 
 The savings come from avoiding asset calculations. The app is faster, too.
-But it's hard for me to measure precisely: enabling AssetRam, this page goes
-from ~9ms to ~7ms.
+But it's hard for me to measure precisely: enabling AssetRam, this page speeds
+up from ~9ms to ~6ms.
 
 > Tip: Set env var `ASSET_RAM_DISABLE` to do this comparison in your own app.
 
