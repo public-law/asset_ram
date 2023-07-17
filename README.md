@@ -78,7 +78,7 @@ But my whole footer partial is static. So I just do this instead in my layout:
 
 ### In some cases, the cache key can't be inferred.
 
-RamCache creates the cache key automatically using the view source filename and line number.
+AssetRam creates the cache key automatically using the view source filename and line number.
 This works for most uses. 
 
 Some of my app's views are an exception, however. It's **multi-tenant** and the views serve content
