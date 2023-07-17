@@ -1,8 +1,8 @@
 # AssetRam
 
 **Rails 7 update:** 35% reduction in allocations measured. I tested 
-[my Rails app's home page](https://www.public.law) running Rails 7.0.6 
-and Ruby 3.2.2 in production. Same results with Sprockets v3 and v4. 
+[my app's home page](https://www.public.law) in production running Rails 7.0.6 
+and Ruby 3.2.2. Same results with Sprockets v3 and v4. 
 The page is simple with only five images. If you have more, you'll get 
 a bigger boost:
 
