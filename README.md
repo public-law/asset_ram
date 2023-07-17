@@ -96,8 +96,9 @@ invocation in the logs. After I optimized a bunch of my code, I realized that th
 create a relatively large amount of objects. The code is pretty complex too implying some amount
 of CPU overhead. Moreover, this work is done over **on every request**.
 
-These asset fingerprints are potentially re-generated on every deploy. So they can't be stored in
-the usual Rails cache. I realized that storing the computed paths in a simple hash (in RAM only)
+These asset fingerprints are potentially re-generated on every deploy. Maybe I edit an image, but
+I haven't modified any ActiveRecord models So **the asset links can't be stored in
+the standard Rails cache.** I realized that storing the computed paths in a simple hash (in RAM only)
 would be fast and never return stale data: The RAM cache goes away on a deploy/restart, which is
 when asset fingerprints could change.
 
