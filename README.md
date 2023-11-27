@@ -32,8 +32,9 @@ gem 'asset_ram'
 
 And then execute:
 
-    $ bundle install
-
+```
+$ bundle install
+```
 
 
 ## Usage
