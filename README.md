@@ -92,7 +92,7 @@ But my whole footer partial is static. So now I just do this instead in my layou
 
 ### In some cases, the cache key can't be inferred.
 
-AssetRam creates the cache key automatically using the view source filename and line number.
+AssetRam creates the cache key automatically using the view's source filename and line number.
 This works for most uses. 
 
 Some of my app's views are an exception, however. It's **multi-tenant** and the views serve content
