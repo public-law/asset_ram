@@ -7,6 +7,7 @@ RSpec.describe AssetRam do
 
   describe ".cache" do
     let(:logger) { double("Logger", warn: nil) }
+    let(:counter) { SimpleCounter.new }
 
     before do
       stub_const("Rails", double("Rails", logger: logger))
@@ -27,7 +28,6 @@ RSpec.describe AssetRam do
 
 
     it "caches the result of the block" do
-      counter = SimpleCounter.new
       result1 = cached_counter(counter)
       result2 = cached_counter(counter)
       expect(result1).to eq(1)
@@ -36,7 +36,6 @@ RSpec.describe AssetRam do
 
     it "does not cache if AssetRam isn't used" do
       # Really just verifying the `cached_counter` helper method.
-      counter = SimpleCounter.new
       result1 = counter.increment!
       result2 = counter.increment!
       expect(result1).to eq(1)
@@ -44,7 +43,6 @@ RSpec.describe AssetRam do
     end
 
     it "uses the key argument as part of the cache key" do
-      counter = SimpleCounter.new
       result1 = cached_counter(counter, key: :foo)
       result2 = cached_counter(counter, key: :bar)
       expect(result1).to eq(1)
@@ -52,7 +50,6 @@ RSpec.describe AssetRam do
     end
 
     it "does not cache if ASSET_RAM_DISABLE is set" do
-      counter = SimpleCounter.new
       begin
         ENV["ASSET_RAM_DISABLE"] = "yes"
         result1 = cached_counter(counter)
