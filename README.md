@@ -137,9 +137,11 @@ These asset fingerprints are potentially re-generated on every deploy. Maybe I e
 I haven't modified any ActiveRecord models. This means that **the asset links cannot be stored in
 the standard Rails cache.** (If the Rails cache had a lifetime option of, "until next boot", that would solve the problem.)
 
-I realized that storing the computed paths in a simple hash (in RAM only)
-would be fast and never return stale data: The RAM cache goes away on a deploy/restart, which is
-when asset fingerprints could change.
+> [!NOTE]
+> I realized that storing the computed paths in a simple hash (in RAM only) would be fast and never
+> return stale data: The RAM cache goes away on a deploy/restart, which is
+> when asset fingerprints could change. (This is also why the Rails cache will not work: There's no Rails
+> cache TTL option for "last only until next deploy")
 
 And so one-by-one I started storing the computed asset paths in a hash, and saw pretty dramatic results.
 
