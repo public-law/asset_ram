@@ -64,5 +64,9 @@ RSpec.describe AssetRam do
     it "returns the value of the block" do
       expect(AssetRam.cache { 42 }).to eq(42)
     end
+
+    it "supports the legacy Helper.cache API" do
+      expect(AssetRam::Helper.cache { 123 }).to eq(123)
+    end
   end
 end
