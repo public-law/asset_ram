@@ -25,12 +25,22 @@ RSpec.describe AssetRam do
       def increment!; @value += 1; end
     end
 
+
     it "caches the result of the block" do
       counter = SimpleCounter.new
       result1 = cached_counter(counter)
       result2 = cached_counter(counter)
       expect(result1).to eq(1)
       expect(result2).to eq(1)
+    end
+
+    it "does not cache if AssetRam isn't used" do
+      # Really just verifying the `cached_counter` helper method.
+      counter = SimpleCounter.new
+      result1 = counter.increment!
+      result2 = counter.increment!
+      expect(result1).to eq(1)
+      expect(result2).to eq(2)
     end
 
     it "uses the key argument as part of the cache key" do
