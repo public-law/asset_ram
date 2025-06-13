@@ -25,7 +25,15 @@ module AssetRam
   class Error < StandardError; end
 
   ##
+  # The simpler API: AssetRam.cache { ... }
+  #
+  def self.cache(key: '', &blk)
+    Helper.cache(key: key, &blk)
+  end
+
+  ##
   # Our own asset helper which memoizes Rails' asset helper calls.
+  #
   class Helper
     @@_cache = {}
 
