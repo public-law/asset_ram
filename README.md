@@ -74,7 +74,7 @@ so we can see what it's caching. This is the line of code that, without AssetRam
 would be exectued on every request.
 
 
-I use it in my footer for social icons as well. I **used to** have this: (HAML syntax) 
+I use it in my footer for social icons as well. I **used to** have this in my `_footer_for_screen.haml`:
 
 ```ruby
 = link_to AssetRam.cache { image_tag("social/instagram-logo.svg", alt: 'Instagram', loading: 'lazy', decoding: 'async') },      "https://www.instagram.com/law.is.code/"
@@ -84,7 +84,13 @@ I use it in my footer for social icons as well. I **used to** have this: (HAML s
 ```
 
 
-But my whole footer partial is static. So now I just do this instead in my layout:
+But my whole footer partial is static. So now I changed the application layout from this:
+
+```ruby
+render 'footer_for_screen'
+```
+
+to this:
 
 ```ruby
 = AssetRam.cache { render 'footer_for_screen' }
