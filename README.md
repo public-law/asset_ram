@@ -150,7 +150,7 @@ that the caching needs to be done within the context of a view. This is why the 
 the way it does. 
 
 To make it as easy as possible to use, the lib finds the view's source filename and the line number of
-the code being cached. This has been working well and in production for four months in a large Rails app.
+the code being cached. This has been working well and in production for ~~four months~~ years in a large Rails app.
 
 
 ## Development
