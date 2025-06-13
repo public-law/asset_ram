@@ -14,8 +14,8 @@ RSpec.describe AssetRam do
     end
 
     # Helper method to call AssetRam.cache from the **same source location**.
-    def cached_counter(counter)
-      AssetRam.cache { counter.increment! }
+    def cached_counter(counter, key: '')
+      AssetRam.cache(key: key) { counter.increment! }
     end
 
     # Simple counter object with increment! method
@@ -35,8 +35,8 @@ RSpec.describe AssetRam do
 
     it "uses the key argument as part of the cache key" do
       counter = SimpleCounter.new
-      result1 = AssetRam.cache(key: :foo) { counter.increment! }
-      result2 = AssetRam.cache(key: :bar) { counter.increment! }
+      result1 = cached_counter(counter, key: :foo)
+      result2 = cached_counter(counter, key: :bar)
       expect(result1).to eq(1)
       expect(result2).to eq(2)
     end
@@ -44,7 +44,7 @@ RSpec.describe AssetRam do
     it "does not cache if ASSET_RAM_DISABLE is set" do
       counter = SimpleCounter.new
       begin
-        ENV["ASSET_RAM_DISABLE"] = "1"
+        ENV["ASSET_RAM_DISABLE"] = "yes"
         result1 = cached_counter(counter)
         result2 = cached_counter(counter)
         expect(result1).to eq(1)
