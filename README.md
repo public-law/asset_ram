@@ -1,5 +1,21 @@
 # AssetRam
 
+## tldr;
+
+Change template lines like this:
+
+```ruby
+<%= javascript_include_tag('application.js') %>
+```
+
+to this:
+
+```ruby
+<%= AssetRam.cache { javascript_include_tag('application.js') } %>
+```
+
+## Performance testing
+
 **Rails 7 update: I measured a 35% reduction in allocations.** I tested 
 [my app's home page](https://www.public.law) in production:
 
