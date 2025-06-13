@@ -90,7 +90,7 @@ But my whole footer partial is static. So now I changed the application layout f
 render 'footer_for_screen'
 ```
 
-to this:
+to this, which caches the whole partial with one `#cache` call:
 
 ```ruby
 = AssetRam.cache { render 'footer_for_screen' }
