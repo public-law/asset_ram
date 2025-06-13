@@ -44,7 +44,7 @@ module AssetRam
 
     def self.cache(key: '', &blk)
       cache_key = blk.source_location
-      cache_key << key if key.present?
+      cache_key << key if !key.to_s.empty?
 
       cache_by_key(cache_key, &blk)
     end
