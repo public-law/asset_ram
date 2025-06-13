@@ -13,10 +13,22 @@ RSpec.describe AssetRam do
       AssetRam::Helper.class_variable_get(:@@_cache).clear
     end
 
+    # Helper method to call AssetRam.cache from the **same source location**.
+    def cached_counter(counter)
+      AssetRam.cache { counter.increment! }
+    end
+
+    # Simple counter object with increment! method
+    class SimpleCounter
+      attr_reader :value
+      def initialize; @value = 0; end
+      def increment!; @value += 1; end
+    end
+
     it "caches the result of the block" do
-      counter = 0
-      result1 = AssetRam.cache { counter += 1 }
-      result2 = AssetRam.cache { counter += 1 }
+      counter = SimpleCounter.new
+      result1 = cached_counter(counter)
+      result2 = cached_counter(counter)
       expect(result1).to eq(1)
       expect(result2).to eq(1)
     end
