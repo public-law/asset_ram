@@ -60,5 +60,9 @@ RSpec.describe AssetRam do
         ENV.delete("ASSET_RAM_DISABLE")
       end
     end
+
+    it "returns the value of the block" do
+      expect(AssetRam.cache { 42 }).to eq(42)
+    end
   end
 end
