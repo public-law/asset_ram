@@ -52,12 +52,18 @@ Wrap every asset helper call with `#cache`, like this:
 ```
 
 
-### After
+### After (Preferred)
+
+```ruby
+<%= AssetRam.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') } %>
+# ...
+<%= AssetRam.cache { javascript_include_tag('application.js') } %>
+```
+
+Or, for compatibility, you can still use:
 
 ```ruby
 <%= AssetRam::Helper.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') } %>
-# ...
-<%= AssetRam::Helper.cache { javascript_include_tag('application.js') } %>
 ```
 
 After booting up, AssetRam sends a message like this _once_ to the log for each usage:
@@ -75,19 +81,17 @@ would be exectued on every request.
 I use it in my footer for social icons as well. I **used to** have this: (HAML syntax) 
 
 ```ruby
-- asset = AssetRam::Helper
-
-= link_to asset.cache { image_tag("social/instagram-logo.svg", alt: 'Instagram', loading: 'lazy', decoding: 'async') },    "https://www.instagram.com/law.is.code/"
-= link_to asset.cache { image_tag("social/facebook-logo-button.svg", alt: 'Facebook', loading: 'lazy', decoding: 'async') }, "https://www.facebook.com/PublicDotLaw"
-= link_to asset.cache { image_tag("social/twitter-logo-button.svg", alt: 'Twitter', loading: 'lazy', decoding: 'async') },   "https://twitter.com/law_is_code"
-= link_to asset.cache { image_tag("social/github-logo.svg", alt: 'Our GitHub Page', loading: 'lazy', decoding: 'async') },   "https://www.github.com/public-law/"
+= link_to AssetRam.cache { image_tag("social/instagram-logo.svg", alt: 'Instagram', loading: 'lazy', decoding: 'async') },      "https://www.instagram.com/law.is.code/"
+= link_to AssetRam.cache { image_tag("social/facebook-logo-button.svg", alt: 'Facebook', loading: 'lazy', decoding: 'async') }, "https://www.facebook.com/PublicDotLaw"
+= link_to AssetRam.cache { image_tag("social/twitter-logo-button.svg", alt: 'Twitter', loading: 'lazy', decoding: 'async') },   "https://twitter.com/law_is_code"
+= link_to AssetRam.cache { image_tag("social/github-logo.svg", alt: 'Our GitHub Page', loading: 'lazy', decoding: 'async') },   "https://www.github.com/public-law/"
 ```
 
 
 But my whole footer partial is static. So now I just do this instead in my layout:
 
 ```ruby
-= AssetRam::Helper.cache { render 'footer_for_screen' }
+= AssetRam.cache { render 'footer_for_screen' }
 ```
 
 
@@ -101,7 +105,7 @@ for many sub-domains. To handle this, the call to `#cache` allows extra key info
 In my HTML `head` view, I already had a `site` variable for choosing the CSS file for the domain. So I reuse that as extra cache key info:
 
 ```ruby
-<%= AssetRam::Helper.cache(key: site) { stylesheet_link_tag("themes/#{site}", media: nil) } %>
+<%= AssetRam.cache(key: site) { stylesheet_link_tag("themes/#{site}", media: nil) } %>
 ```
 
 ## Background: I was looking for ways to reduce allocations in my Rails app
