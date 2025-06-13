@@ -5,7 +5,7 @@ require_relative "asset_ram/version"
 #
 # Use in views to cache the asset path computation.
 #
-# Preferred usage (since v1.1):
+# Preferred usage (since v1.1.0):
 #
 #   = AssetRam.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') }
 #
