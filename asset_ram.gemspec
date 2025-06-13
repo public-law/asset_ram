@@ -5,16 +5,16 @@ require_relative "lib/asset_ram/version"
 Gem::Specification.new do |spec|
   spec.name          = "asset_ram"
   spec.version       = AssetRam::VERSION
-  spec.authors       = ["Robb Shecter"]
-  spec.email         = ["robb@public.law"]
+  spec.authors       = ["Robert Shecter"]
+  spec.email         = ["robert@public.law"]
 
   spec.summary       = "Improves Rails performance by caching asset path calculations"
-  spec.homepage      = "https://github.com/dogweather/asset_ram"
+  spec.homepage      = "https://github.com/public-law/asset_ram"
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 2.4.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/dogweather/asset_ram"
+  spec.metadata["source_code_uri"] = "https://github.com/public-law/asset_ram"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
