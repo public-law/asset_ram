@@ -40,8 +40,9 @@ $ bundle install
 
 ## Usage
 
-Wrap every asset helper call with `#cache`, like this:
+Wrap every asset helper call with `#cache` so that code reading `xyz` becomes `AssetRam.cache { xyz }`.
 
+**Real examples from my app:**
 
 ### Before
 
