@@ -10,6 +10,7 @@ RSpec.describe AssetRam do
 
     before do
       stub_const("Rails", double("Rails", logger: logger))
+      AssetRam::Helper.class_variable_get(:@@_cache).clear
     end
 
     it "caches the result of the block" do
