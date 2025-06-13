@@ -52,7 +52,7 @@ Wrap every asset helper call with `#cache`, like this:
 ```
 
 
-### After (Preferred)
+### After
 
 ```ruby
 <%= AssetRam.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') } %>
@@ -60,11 +60,6 @@ Wrap every asset helper call with `#cache`, like this:
 <%= AssetRam.cache { javascript_include_tag('application.js') } %>
 ```
 
-Or, for compatibility, you can still use:
-
-```ruby
-<%= AssetRam::Helper.cache { favicon_link_tag('favicon/favicon.ico', rel: 'icon') } %>
-```
 
 After booting up, AssetRam sends a message like this _once_ to the log for each usage:
 
