@@ -34,19 +34,19 @@ RSpec.describe AssetRam do
     end
 
     it "uses the key argument as part of the cache key" do
-      counter = 0
-      result1 = AssetRam.cache(key: :foo) { counter += 1 }
-      result2 = AssetRam.cache(key: :bar) { counter += 1 }
+      counter = SimpleCounter.new
+      result1 = AssetRam.cache(key: :foo) { counter.increment! }
+      result2 = AssetRam.cache(key: :bar) { counter.increment! }
       expect(result1).to eq(1)
       expect(result2).to eq(2)
     end
 
     it "does not cache if ASSET_RAM_DISABLE is set" do
-      counter = 0
+      counter = SimpleCounter.new
       begin
         ENV["ASSET_RAM_DISABLE"] = "1"
-        result1 = AssetRam.cache { counter += 1 }
-        result2 = AssetRam.cache { counter += 1 }
+        result1 = cached_counter(counter)
+        result2 = cached_counter(counter)
         expect(result1).to eq(1)
         expect(result2).to eq(2)
       ensure
