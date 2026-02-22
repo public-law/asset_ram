@@ -69,4 +69,75 @@ RSpec.describe AssetRam do
       expect(AssetRam::Helper.cache { 123 }).to eq(123)
     end
   end
+
+  describe ".cache when APP_REVISION is set" do
+    let(:logger) { double("Logger", warn: nil) }
+    let(:fake_cache_store) { {} }
+    let(:fake_cache) do
+      store = fake_cache_store
+      double("Cache").tap do |c|
+        allow(c).to receive(:fetch) do |key, &block|
+          store.fetch(key) { store[key] = block.call }
+        end
+      end
+    end
+    let(:counter) { SimpleCounter.new }
+
+    before do
+      stub_const("AssetRam::APP_REVISION", "abc123")
+      stub_const("Rails", double("Rails", logger: logger, cache: fake_cache))
+      AssetRam::Helper.class_variable_get(:@@_cache).clear
+    end
+
+    def cached_counter(counter, key: '')
+      AssetRam.cache(key: key) { counter.increment! }
+    end
+
+    class SimpleCounter
+      attr_reader :value
+      def initialize; @value = 0; end
+      def increment!; @value += 1; end
+    end
+
+    it "caches the result via Rails.cache" do
+      result1 = cached_counter(counter)
+      result2 = cached_counter(counter)
+      expect(result1).to eq(1)
+      expect(result2).to eq(1)
+    end
+
+    it "uses the key argument as part of the cache key" do
+      result1 = cached_counter(counter, key: :foo)
+      result2 = cached_counter(counter, key: :bar)
+      expect(result1).to eq(1)
+      expect(result2).to eq(2)
+    end
+
+    it "does not cache if ASSET_RAM_DISABLE is set" do
+      begin
+        ENV["ASSET_RAM_DISABLE"] = "yes"
+        result1 = cached_counter(counter)
+        result2 = cached_counter(counter)
+        expect(result1).to eq(1)
+        expect(result2).to eq(2)
+      ensure
+        ENV.delete("ASSET_RAM_DISABLE")
+      end
+    end
+
+    it "returns the value of the block" do
+      expect(AssetRam.cache { 42 }).to eq(42)
+    end
+
+    it "does not populate @@_cache" do
+      cached_counter(counter)
+      expect(AssetRam::Helper.class_variable_get(:@@_cache)).to be_empty
+    end
+
+    it "includes the revision in the Rails.cache key" do
+      cached_counter(counter)
+      keys = fake_cache_store.keys
+      expect(keys.first).to start_with("asset_ram/abc123/")
+    end
+  end
 end
