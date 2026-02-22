@@ -57,7 +57,7 @@ module AssetRam
     def self.cache_by_key(cache_key, &blk)
       return yield if ENV['ASSET_RAM_DISABLE']
 
-      if APP_REVISION
+      if APP_REVISION && !ENV['ASSET_RAM_HASH_ONLY']
         rails_cache_key = "asset_ram/#{APP_REVISION}/#{cache_key.join('/')}"
         Rails.cache.fetch(rails_cache_key) do
           Rails.logger.warn("Caching #{cache_key} in Rails cache")

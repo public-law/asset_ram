@@ -143,6 +143,16 @@ RSpec.describe AssetRam do
       expect(AssetRam::Helper.class_variable_get(:@@_cache)).to be_empty
     end
 
+    it "forces RAM cache when ASSET_RAM_HASH_ONLY is set" do
+      begin
+        ENV["ASSET_RAM_HASH_ONLY"] = "yes"
+        cached_counter(counter)
+        expect(AssetRam::Helper.class_variable_get(:@@_cache)).not_to be_empty
+      ensure
+        ENV.delete("ASSET_RAM_HASH_ONLY")
+      end
+    end
+
     it "includes the revision in the Rails.cache key" do
       cached_counter(counter)
       keys = fake_cache_store.keys
