@@ -59,7 +59,7 @@ module AssetRam
       if APP_REVISION
         rails_cache_key = "asset_ram/#{APP_REVISION}/#{cache_key.join('/')}"
         Rails.cache.fetch(rails_cache_key) do
-          Rails.logger.warn("Caching #{cache_key}")
+          Rails.logger.warn("Caching #{cache_key} in Rails cache")
           yield
         end
       else
@@ -67,7 +67,7 @@ module AssetRam
           # Using WARN level because it should only output
           # once during any Rails run. If it's output multiple
           # times, then caching isn't working correctly.
-          Rails.logger.warn("Caching #{cache_key}")
+          Rails.logger.warn("Caching #{cache_key} in RAM cache")
           @@_cache[cache_key] = yield
         end
 
