@@ -12,6 +12,7 @@ RSpec.describe AssetRam do
     before do
       stub_const("Rails", double("Rails", logger: logger))
       AssetRam::Helper.class_variable_get(:@@_cache).clear
+      AssetRam::Helper.class_variable_set(:@@_cumulative_size, 0)
     end
 
     # Helper method to call AssetRam.cache from the **same source location**.
@@ -68,6 +69,13 @@ RSpec.describe AssetRam do
     it "supports the legacy Helper.cache API" do
       expect(AssetRam::Helper.cache { 123 }).to eq(123)
     end
+
+    it "tracks cumulative byte size of cached values" do
+      AssetRam.cache(key: :a) { "hello" }
+      AssetRam.cache(key: :b) { "world!" }
+      cumulative = AssetRam::Helper.class_variable_get(:@@_cumulative_size)
+      expect(cumulative).to eq("hello".bytesize + "world!".bytesize)
+    end
   end
 
   describe ".cache when APP_REVISION is set" do
@@ -87,6 +95,7 @@ RSpec.describe AssetRam do
       stub_const("AssetRam::APP_REVISION", "abc123")
       stub_const("Rails", double("Rails", logger: logger, cache: fake_cache))
       AssetRam::Helper.class_variable_get(:@@_cache).clear
+      AssetRam::Helper.class_variable_set(:@@_cumulative_size, 0)
     end
 
     def cached_counter(counter, key: '')

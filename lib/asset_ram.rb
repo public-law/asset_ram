@@ -43,6 +43,7 @@ module AssetRam
   #
   class Helper
     @@_cache = {}
+    @@_cumulative_size = 0
 
 
     def self.cache(key: '', &blk)
@@ -67,8 +68,9 @@ module AssetRam
           # Using WARN level because it should only output
           # once during any Rails run. If it's output multiple
           # times, then caching isn't working correctly.
-          Rails.logger.warn("Caching #{cache_key} in RAM cache")
           @@_cache[cache_key] = yield
+          @@_cumulative_size += @@_cache[cache_key].to_s.bytesize
+          Rails.logger.warn("Caching #{cache_key} in RAM cache (total size: #{@@_cumulative_size} bytes)")
         end
 
         @@_cache.fetch(cache_key)
