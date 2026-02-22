@@ -28,6 +28,9 @@ require_relative "asset_ram/version"
 module AssetRam
   class Error < StandardError; end
 
+  _rev = ENV['APP_REVISION']
+  APP_REVISION = (_rev.nil? || _rev.empty?) ? nil : _rev.freeze
+
   ##
   # The simpler API: AssetRam.cache { ... }
   #
@@ -53,15 +56,23 @@ module AssetRam
     def self.cache_by_key(cache_key, &blk)
       return yield if ENV['ASSET_RAM_DISABLE']
 
-      if !@@_cache.has_key?(cache_key)
-        # Using WARN level because it should only output
-        # once during any Rails run. If it's output multiple
-        # times, then caching isn't working correctly.
-        Rails.logger.warn("Caching #{cache_key}")
-        @@_cache[cache_key] = yield
-      end
+      if APP_REVISION
+        rails_cache_key = "asset_ram/#{APP_REVISION}/#{cache_key.join('/')}"
+        Rails.cache.fetch(rails_cache_key) do
+          Rails.logger.warn("Caching #{cache_key} in Rails cache")
+          yield
+        end
+      else
+        if !@@_cache.has_key?(cache_key)
+          # Using WARN level because it should only output
+          # once during any Rails run. If it's output multiple
+          # times, then caching isn't working correctly.
+          Rails.logger.warn("Caching #{cache_key} in RAM cache")
+          @@_cache[cache_key] = yield
+        end
 
-      @@_cache.fetch(cache_key)
+        @@_cache.fetch(cache_key)
+      end
     end
 
   end

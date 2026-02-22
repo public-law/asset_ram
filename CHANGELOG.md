@@ -1,3 +1,7 @@
+## [1.2.0] - 2026-02-21
+
+- When the `APP_REVISION` env var is set, use `Rails.cache` (e.g., memcached) instead of a per-process Ruby hash. The cache key is prefixed with the revision, so it naturally invalidates on deploy. This allows sharing cached asset paths across Puma workers, reducing RAM usage and speeding up startups.
+
 ## [1.1.0] - 2025-06-12
 
 - Added a new, simpler API: `AssetRam.cache { ... }` as the preferred way to cache asset computations in views. The legacy `AssetRam::Helper.cache` API is still supported for compatibility.
