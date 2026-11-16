@@ -62,7 +62,7 @@ module AssetRam
         fetch_from_rails_cache(rails_cache_key(path, line, key), &blk)
       else
         entries = slot(@@_cache, path, line)
-        entries.fetch(key) { entries[key] = remember([path, line, key], &blk) }
+        entries.fetch(key) { entries[key] = remember(location_name(path, line, key), &blk) }
       end
     end
 
@@ -94,8 +94,7 @@ module AssetRam
     def self.rails_cache_key(path, line, key)
       keys = slot(@@_rails_keys[APP_REVISION] ||= {}, path, line)
       keys.fetch(key) do
-        parts = key.equal?(NO_KEY) ? [path, line] : [path, line, key]
-        keys[key] = "asset_ram/#{APP_REVISION}/#{parts.join('/')}".freeze
+        keys[key] = "asset_ram/#{APP_REVISION}/#{location_name(path, line, key).join('/')}".freeze
       end
     end
 
@@ -104,7 +103,7 @@ module AssetRam
     # Cached strings are frozen copies, so no caller can alter what
     # every later page receives.
     #
-    def self.remember(cache_key)
+    def self.remember(name)
       value = yield
       value = value.dup.freeze if value.is_a?(String) && !value.frozen?
 
@@ -112,7 +111,7 @@ module AssetRam
       # once during any Rails run. If it's output multiple
       # times, then caching isn't working correctly.
       @@_cumulative_size += value.to_s.bytesize
-      Rails.logger.warn("Caching #{log_name(cache_key)} in RAM cache (total size: #{@@_cumulative_size} bytes)")
+      Rails.logger.warn("Caching #{name} in RAM cache (total size: #{@@_cumulative_size} bytes)")
       value
     end
 
@@ -128,11 +127,11 @@ module AssetRam
     end
 
 
-    def self.log_name(cache_key)
-      cache_key.last.equal?(NO_KEY) ? cache_key[0..-2] : cache_key
+    def self.location_name(path, line, key)
+      key.equal?(NO_KEY) ? [path, line] : [path, line, key]
     end
 
     private_class_method :rails_cache?, :fetch_from_rails_cache, :rails_cache_key,
-                         :remember, :slot, :blank_key?, :log_name
+                         :remember, :slot, :blank_key?, :location_name
   end
 end

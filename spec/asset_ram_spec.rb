@@ -70,6 +70,12 @@ RSpec.describe AssetRam do
       expect(AssetRam::Helper.cache { 123 }).to eq(123)
     end
 
+    it "caches a scalar key passed to cache_by_key" do
+      result1 = AssetRam::Helper.cache_by_key("scalar") { counter.increment! }
+      result2 = AssetRam::Helper.cache_by_key("scalar") { counter.increment! }
+      expect([result1, result2]).to eq([1, 1])
+    end
+
     it "tracks cumulative byte size of cached values" do
       AssetRam.cache(key: :a) { "hello" }
       AssetRam.cache(key: :b) { "world!" }
